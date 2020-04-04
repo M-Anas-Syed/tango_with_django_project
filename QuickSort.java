@@ -166,10 +166,10 @@ private static int[] partition3Way(int[] array, int low, int high) {
 	//lt: the first element with the pivot value
 	//the last element with pivot value
 
-	int lt = low; 
-	int gt = high;
-	int cmp = array[low];
-	int i = low;
+	int ilt = low; 
+	int jgt = high;
+	int vcmp = array[low];
+	int si = low;
 	
 	while (true) {
 		if (array[i] < cmp)
