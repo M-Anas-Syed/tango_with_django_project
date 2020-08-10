@@ -291,11 +291,11 @@ class Chapter9RegistrationTests(TestCase):
 
     def test_base_for_register_link(self):
         """
-        Tests whether the registration link has been added to the base.html template.
+        Tests whether the registration link has been added to the base-old.html template.
         This should work for pre-exercises, and post-exercises.
         """
         template_base_path = os.path.join(settings.TEMPLATE_DIR, 'rango')
-        base_path = os.path.join(template_base_path, 'base.html')
+        base_path = os.path.join(template_base_path, 'base-old.html')
         template_str = get_template(base_path)
         self.assertTrue('<li><a href="{% url \'rango:register\' %}">Sign Up</a></li>' in template_str)
     
@@ -408,7 +408,7 @@ class Chapter9RestrictedAccessTests(TestCase):
     def test_good_request(self):
         """
         Attempts to access the restricted view when logged in.
-        This should not redirect. We cannot test the content here. Only links in base.html can be checked -- we do this in the exercise tests.
+        This should not redirect. We cannot test the content here. Only links in base-old.html can be checked -- we do this in the exercise tests.
         """
         create_user_object()
         self.client.login(username='testuser', password='testabc123')
@@ -452,7 +452,7 @@ class Chapter9LogoutTests(TestCase):
 
 class Chapter9LinkTidyingTests(TestCase):
     """
-    Some checks to see whether the links in base.html have been tidied up and change depending on whether a user is logged in or not.
+    Some checks to see whether the links in base-old.html have been tidied up and change depending on whether a user is logged in or not.
     We don't check for category/page links here; these are done in the exercises.
     """
     def test_omnipresent_links(self):
@@ -468,8 +468,8 @@ class Chapter9LinkTidyingTests(TestCase):
 
         # These should be present.
         content = self.client.get(reverse('rango:index')).content.decode()
-        self.assertTrue('href="/rango/about/"' in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
-        self.assertTrue('href="/rango/"' in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/about/"' in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/"' in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
     
     def test_logged_in_links(self):
         """
@@ -480,12 +480,12 @@ class Chapter9LinkTidyingTests(TestCase):
         content = self.client.get(reverse('rango:index')).content.decode()
 
         # These should be present.
-        self.assertTrue('href="/rango/restricted/"' in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
-        self.assertTrue('href="/rango/logout/"' in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/restricted/"' in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/logout/"' in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
 
         # These should not be present.
-        self.assertTrue('href="/rango/login/"' not in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
-        self.assertTrue('href="/rango/register/"' not in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/login/"' not in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/register/"' not in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
     
     def test_logged_out_links(self):
         """
@@ -494,12 +494,12 @@ class Chapter9LinkTidyingTests(TestCase):
         content = self.client.get(reverse('rango:index')).content.decode()
 
         # These should be present.
-        self.assertTrue('href="/rango/login/"' in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
-        self.assertTrue('href="/rango/register/"' in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/login/"' in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/register/"' in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
         
         # These should not be present.
-        self.assertTrue('href="/rango/restricted/"' not in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
-        self.assertTrue('href="/rango/logout/"' not in content, f"{FAILURE_HEADER}Please check the links in your base.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/restricted/"' not in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
+        self.assertTrue('href="/rango/logout/"' not in content, f"{FAILURE_HEADER}Please check the links in your base-old.html have been updated correctly to change when users log in and out.{FAILURE_FOOTER}")
 
 
 class Chapter9ExerciseTests(TestCase):
@@ -586,13 +586,13 @@ class Chapter9ExerciseTests(TestCase):
         """
         content = self.client.get(reverse('rango:index')).content.decode()
 
-        self.assertTrue(reverse('rango:add_category') not in content, f"{FAILURE_HEADER}The Add Category link was present on Rango's homepage when a user is not logged in. This shouldn't be the case! Please check your base.html template.{FAILURE_FOOTER}")
+        self.assertTrue(reverse('rango:add_category') not in content, f"{FAILURE_HEADER}The Add Category link was present on Rango's homepage when a user is not logged in. This shouldn't be the case! Please check your base-old.html template.{FAILURE_FOOTER}")
 
         user_object = create_user_object()
         self.client.login(username='testuser', password='testabc123')
         content = self.client.get(reverse('rango:index')).content.decode()
 
-        self.assertTrue(reverse('rango:add_category') in content, f"{FAILURE_HEADER}The Add Category link was not present on Rango's homepage when the user was logged in. It should be visible! Please check base.html.{FAILURE_FOOTER}")
+        self.assertTrue(reverse('rango:add_category') in content, f"{FAILURE_HEADER}The Add Category link was not present on Rango's homepage when the user was logged in. It should be visible! Please check base-old.html.{FAILURE_FOOTER}")
 
     def test_add_page_link(self):
         """

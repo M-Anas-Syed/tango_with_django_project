@@ -54,18 +54,18 @@ class Chapter8TemplateTests(TestCase):
         """
         Tests whether the base template exists.
         """
-        template_base_path = os.path.join(settings.TEMPLATE_DIR, 'rango', 'base.html')
-        self.assertTrue(os.path.exists(template_base_path), f"{FAILURE_HEADER}We couldn't find the new base.html template that's required in the templates/rango directory. Did you create the template in the right place?{FAILURE_FOOTER}")
+        template_base_path = os.path.join(settings.TEMPLATE_DIR, 'rango', 'base-old.html')
+        self.assertTrue(os.path.exists(template_base_path), f"{FAILURE_HEADER}We couldn't find the new base-old.html template that's required in the templates/rango directory. Did you create the template in the right place?{FAILURE_FOOTER}")
     
     def test_base_title_block(self):
         """
         Checks if Rango's new base template has the correct value for the base template.
         """
-        template_base_path = os.path.join(settings.TEMPLATE_DIR, 'rango', 'base.html')
+        template_base_path = os.path.join(settings.TEMPLATE_DIR, 'rango', 'base-old.html')
         template_str = self.get_template(template_base_path)
         
         title_pattern = r'<title>(\s*|\n*)Rango(\s*|\n*)-(\s*|\n*){% block title_block %}(\s*|\n*)How to Tango with Django!(\s*|\n*){% (endblock|endblock title_block) %}(\s*|\n*)</title>'
-        self.assertTrue(re.search(title_pattern, template_str), f"{FAILURE_HEADER}When searching the contents of base.html, we couldn't find the expected title block. We're looking for '<title>Rango - {{% block title_block %}}How to Tango with Django!{{% endblock %}}</title>' with any combination of whitespace.{FAILURE_FOOTER}")
+        self.assertTrue(re.search(title_pattern, template_str), f"{FAILURE_HEADER}When searching the contents of base-old.html, we couldn't find the expected title block. We're looking for '<title>Rango - {{% block title_block %}}How to Tango with Django!{{% endblock %}}</title>' with any combination of whitespace.{FAILURE_FOOTER}")
     
     def test_template_usage(self):
         """
@@ -129,10 +129,10 @@ class Chapter8TemplateTests(TestCase):
     
     def test_for_links_in_base(self):
         """
-        There should be three hyperlinks in base.html, as per the specification of the book.
+        There should be three hyperlinks in base-old.html, as per the specification of the book.
         Check for their presence, along with correct use of URL lookups.
         """
-        template_str = self.get_template(os.path.join(settings.TEMPLATE_DIR, 'rango', 'base.html'))
+        template_str = self.get_template(os.path.join(settings.TEMPLATE_DIR, 'rango', 'base-old.html'))
 
         look_for = [
             '<a href="{% url \'rango:add_category\' %}">Add a New Category</a>',
@@ -141,4 +141,4 @@ class Chapter8TemplateTests(TestCase):
         ]
         
         for lookup in look_for:
-            self.assertTrue(lookup in template_str, f"{FAILURE_HEADER}In base.html, we couldn't find the hyperlink '{lookup}'. Check your markup in base.html is correct and as written in the book.{FAILURE_FOOTER}")
+            self.assertTrue(lookup in template_str, f"{FAILURE_HEADER}In base-old.html, we couldn't find the hyperlink '{lookup}'. Check your markup in base-old.html is correct and as written in the book.{FAILURE_FOOTER}")
