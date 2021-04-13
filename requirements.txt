@@ -11,7 +11,7 @@ hupper==1.10.2
 idna==2.10
 MarkupSafe==1.1.1
 PasteDeploy==2.1.0
-Pillow==7.0.0
+Pillow==8.1.1
 Pygments==2.6.1
 pytz==2019.3
 repoze.lru==0.7
