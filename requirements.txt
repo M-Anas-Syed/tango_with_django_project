@@ -21,5 +21,5 @@ Tempita==0.5.2
 tg.devtools==2.4.3
 tgext.debugbar==0.5.0
 TurboGears2==2.4.3
-urllib3==1.25.10
+urllib3==1.26.5
 WebOb==1.8.6
