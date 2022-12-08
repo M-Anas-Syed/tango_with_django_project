@@ -1,5 +1,5 @@
 backlash==0.3.1
-certifi==2019.11.28
+certifi==2022.12.7
 chardet==3.0.4
 confusable-homoglyphs==3.2.0
 crank==0.8.1
